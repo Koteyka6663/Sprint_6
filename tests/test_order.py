@@ -1,5 +1,7 @@
 
 import allure
+
+import data
 from tests import helper
 from pages.order_page import OrderPage
 from pages.main_page import MainPage
@@ -50,11 +52,12 @@ class TestOrder:
     @allure.title('Проверяем, что по клику на лого Самоката происходит редирект на главную страницу')
     def test_switch_to_main_page(self, driver):
 
-        page = OrderPage(driver)
-        page.get_url()
-        page.click_to_logo_scooter()
+        page_order = OrderPage(driver)
+        page_main = MainPage(driver)
+        page_order.get_url()
+        page_order.click_to_logo_scooter()
 
-        assert driver.current_url == URLs.URL_MAIN_PAGE
+        assert page_main.get_answer_text(0) == data.Answers.ANSWERS_LIST[0]
 
     @allure.title('Проверяем, что по клику на лого Яндекса происходит редирект на страницу Дзена')
     def test_switch_to_dzen(self, driver):
@@ -62,6 +65,6 @@ class TestOrder:
         page = OrderPage(driver)
         page.get_url()
         page.click_to_logo_yandex()
-        driver.switch_to.window(driver.window_handles[1])
+        page.switch_tab(driver)
 
         assert page.find_element_with_wait_dzen().text == "Всё о Дзене"

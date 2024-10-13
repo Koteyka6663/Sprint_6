@@ -40,3 +40,6 @@ class BasePage:
         method, path = locator
         path = path.format(num)
         return method, path
+
+    def switch_tab(self, driver):
+        driver.switch_to.window(driver.window_handles[1])
