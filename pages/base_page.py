@@ -1,4 +1,3 @@
-
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -8,6 +7,9 @@ class BasePage:
 
     def __init__(self, driver):
         self.driver = driver
+
+    def get_driver(self, URL):
+        self.driver.get(URL)
 
     def find_element_with_wait(self, locator):
         WebDriverWait(self.driver, 3).until(
@@ -38,5 +40,3 @@ class BasePage:
         method, path = locator
         path = path.format(num)
         return method, path
-
-
